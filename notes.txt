@@ -1,0 +1,370 @@
+my_project/
+│
+├── main.py
+├── app.py
+├── config.py
+├── requirements.txt
+├── pyproject.toml
+├── README.md
+├── .env
+├── .gitignore
+│
+├── data/
+│   ├── users.csv
+│   ├── employee.xlsx
+│   ├── products.json
+│   └── image.png
+│
+├── templates/
+│   └── index.html
+│
+├── static/
+│   ├── style.css
+│   └── app.js
+│
+├── tests/
+│   └── test_app.py
+│
+└── uploads/
+
+Let's learn how each file is used.
+
+1. Python Files (.py)
+
+These contain your code.
+
+Example
+
+main.py
+
+Run it
+
+python main.py
+
+or
+
+python app.py
+2. Text Files (.txt)
+
+Example
+
+notes.txt
+
+Read
+
+with open("notes.txt", "r") as file:
+    data = file.read()
+
+print(data)
+
+Write
+
+with open("notes.txt", "w") as file:
+    file.write("Hello")
+3. CSV Files (.csv)
+
+Used for datasets.
+
+Example
+
+students.csv
+
+Read
+
+import csv
+
+with open("students.csv") as file:
+    reader = csv.reader(file)
+
+    for row in reader:
+        print(row)
+
+Better (using pandas)
+
+import pandas as pd
+
+df = pd.read_csv("students.csv")
+
+print(df)
+4. Excel Files (.xlsx)
+
+Install
+
+pip install openpyxl pandas
+
+Read
+
+import pandas as pd
+
+df = pd.read_excel("students.xlsx")
+
+print(df)
+
+Write
+
+df.to_excel("output.xlsx", index=False)
+5. JSON Files (.json)
+
+Used everywhere for APIs and configuration.
+
+Example
+
+{
+    "name":"Ammu",
+    "age":21
+}
+
+Read
+
+import json
+
+with open("data.json") as file:
+    data = json.load(file)
+
+print(data["name"])
+
+Write
+
+import json
+
+student = {
+    "name":"Ammu",
+    "age":21
+}
+
+with open("data.json","w") as file:
+    json.dump(student,file,indent=4)
+6. Images
+
+Install Pillow
+
+pip install pillow
+
+Read
+
+from PIL import Image
+
+img = Image.open("cat.jpg")
+
+img.show()
+
+Save
+
+img.save("new.png")
+7. PDF Files
+
+Install
+
+pip install pypdf
+
+Read
+
+from pypdf import PdfReader
+
+reader = PdfReader("resume.pdf")
+
+print(reader.pages[0].extract_text())
+8. Word Documents (.docx)
+
+Install
+
+pip install python-docx
+
+Read
+
+from docx import Document
+
+doc = Document("resume.docx")
+
+for para in doc.paragraphs:
+    print(para.text)
+
+Write
+
+from docx import Document
+
+doc = Document()
+
+doc.add_heading("Resume")
+
+doc.save("resume.docx")
+9. HTML Files
+templates/index.html
+
+Flask
+
+from flask import render_template
+
+render_template("index.html")
+
+Python doesn't "run" HTML—it serves it through a web framework or you open it in a browser.
+
+10. CSS Files
+style.css
+
+Linked in HTML
+
+<link rel="stylesheet" href="style.css">
+
+The browser uses CSS; Python just serves the file.
+
+11. JavaScript
+app.js
+
+Included in HTML
+
+<script src="app.js"></script>
+
+Executed by the browser, not Python.
+
+12. SQL Files
+queries.sql
+
+Read
+
+with open("queries.sql") as file:
+    query = file.read()
+
+cursor.execute(query)
+13. XML
+
+Read
+
+import xml.etree.ElementTree as ET
+
+tree = ET.parse("books.xml")
+
+root = tree.getroot()
+14. YAML
+
+Install
+
+pip install pyyaml
+
+Read
+
+import yaml
+
+with open("config.yaml") as file:
+    data = yaml.safe_load(file)
+
+print(data)
+15. Environment Files (.env)
+
+Used for secrets like API keys.
+
+API_KEY=abc123
+DATABASE_URL=mysql://...
+
+Install
+
+pip install python-dotenv
+
+Read
+
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+key = os.getenv("API_KEY")
+16. Requirements File
+requirements.txt
+
+Install packages
+
+pip install -r requirements.txt
+17. pyproject.toml
+
+Modern project configuration.
+
+Used by tools like Poetry, Hatch, and modern packaging systems.
+
+You generally don't run it directly; tools read it.
+
+18. Shell Scripts (.sh)
+
+Linux/macOS
+
+setup.sh
+
+Run
+
+bash setup.sh
+
+or
+
+chmod +x setup.sh
+./setup.sh
+19. Batch Files (.bat)
+
+Windows
+
+run.bat
+
+Run
+
+run.bat
+20. Jupyter Notebook (.ipynb)
+
+Start Jupyter
+
+jupyter notebook
+
+or
+
+jupyter lab
+
+Open
+
+analysis.ipynb
+
+Great for data science and experimentation.
+
+21. Markdown (.md)
+
+Example
+
+README.md
+
+Used for documentation. It isn't "run"; it's rendered by platforms like GitHub or editors like VS Code.
+
+How software developers actually run projects
+
+Developers usually don't run every file individually. They run the entry point of the application.
+
+Project Type	Command
+Simple Python script	python main.py
+Module	python -m package.module
+Flask	flask run
+FastAPI	uvicorn main:app --reload
+Django	python manage.py runserver
+Frappe	bench start
+Streamlit	streamlit run app.py
+Jupyter	jupyter notebook
+Tests	pytest
+
+The entry point then reads configuration files, loads templates, connects to databases, serves HTML/CSS/JS, and processes data files as needed.
+
+The workflow you'll follow in your internship
+
+Activate the virtual environment
+
+source venv/bin/activate
+
+(Windows: venv\Scripts\activate)
+
+Install dependencies
+
+pip install -r requirements.txt
+Run the project
+Plain Python: python main.py
+FastAPI: uvicorn main:app --reload
+Flask: flask run
+Frappe: bench start
+Your code will then automatically read files like:
+.env for secrets
+.json, .csv, .xlsx for data
+.html, .css, .js for the frontend
+.sql for database queries
+Images, PDFs, Word files, etc., depending on the application's features
